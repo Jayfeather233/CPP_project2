@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+project(better_calc)
+aux_source_directory(./src DIR_SRCS)
+include_directories(./inc)
+add_executable(bc ${DIR_SRCS})
