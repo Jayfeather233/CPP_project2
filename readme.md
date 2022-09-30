@@ -1,4 +1,4 @@
-# CS205 C/ C++ Programming - Lab Assignment Template
+# CS205 C/ C++ Programming - Better Calculator
 
 **Name**: 肖佳辰
 
