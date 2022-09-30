@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/jayfeather/文档/cpps/project2/build",
+  "command": "/usr/bin/g++  -I/home/jayfeather/文档/cpps/project2/./inc -g -o CMakeFiles/bc.dir/src/main.cpp.o -c /home/jayfeather/文档/cpps/project2/src/main.cpp",
+  "file": "/home/jayfeather/文档/cpps/project2/src/main.cpp"
+}
+]
