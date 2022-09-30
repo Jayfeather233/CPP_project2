@@ -1,3 +1,0 @@
-/home/jayfeather/文档/cpps/project2/CMakeFiles/bc.dir
-/home/jayfeather/文档/cpps/project2/CMakeFiles/edit_cache.dir
-/home/jayfeather/文档/cpps/project2/CMakeFiles/rebuild_cache.dir
