@@ -6,19 +6,7 @@
 
 ## Part 1 - Analysis
 
-> In this part, you should present how you analyze the problem and list basic steps to show how the
-> problem is solved.
-> You can list libraries, techniques and algorithms you use in this program and even some mathematical
-> equations.
-
-> Example: Sum the square from 1 to $N$, $N$ will be given from `stdin`.
-
-The problem is to calculate $\sum\limits_{i=1}^{n}i^2$, traditionally, we can use a loop to calculate item by item, but we can do that in an efficient way.  
-
-$$
-\sum\limits_{i=1}^ni^2=\dfrac{n(n+1)(2n+1)}{6}
-$$
-
+The problem is to calculate a set of expressions, including quadratic operations, variables, math functions.
 
 ## Part 2 - Code
 
@@ -49,5 +37,4 @@ Test case #2:
 
 ## Part 4 - Difficulties & Solutions
 
-Use `long long` to store the result.
-
+Use `expression tree` to store and calculate the expression. Use `big_number` to store very big numbers(integer and float). Use `map` to store variables.
