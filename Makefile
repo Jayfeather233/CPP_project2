@@ -129,6 +129,30 @@ bc/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/build
 .PHONY : bc/fast
 
+src/bignumber.o: src/bignumber.cpp.o
+.PHONY : src/bignumber.o
+
+# target to build an object file
+src/bignumber.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/bignumber.cpp.o
+.PHONY : src/bignumber.cpp.o
+
+src/bignumber.i: src/bignumber.cpp.i
+.PHONY : src/bignumber.i
+
+# target to preprocess a source file
+src/bignumber.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/bignumber.cpp.i
+.PHONY : src/bignumber.cpp.i
+
+src/bignumber.s: src/bignumber.cpp.s
+.PHONY : src/bignumber.s
+
+# target to generate assembly for a file
+src/bignumber.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/bignumber.cpp.s
+.PHONY : src/bignumber.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -153,6 +177,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/variables.o: src/variables.cpp.o
+.PHONY : src/variables.o
+
+# target to build an object file
+src/variables.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/variables.cpp.o
+.PHONY : src/variables.cpp.o
+
+src/variables.i: src/variables.cpp.i
+.PHONY : src/variables.i
+
+# target to preprocess a source file
+src/variables.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/variables.cpp.i
+.PHONY : src/variables.cpp.i
+
+src/variables.s: src/variables.cpp.s
+.PHONY : src/variables.s
+
+# target to generate assembly for a file
+src/variables.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/variables.cpp.s
+.PHONY : src/variables.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... bc"
+	@echo "... src/bignumber.o"
+	@echo "... src/bignumber.i"
+	@echo "... src/bignumber.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/variables.o"
+	@echo "... src/variables.i"
+	@echo "... src/variables.s"
 .PHONY : help
 
 

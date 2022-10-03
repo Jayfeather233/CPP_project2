@@ -8,7 +8,9 @@
 #include <iostream>
 #include <cstring>
 
-inline void set_variable(std::string, big_number);
-inline big_number get_variable(std::string);
+void set_variable(const std::string, big_number);
+void set_variable(const char *, big_number);
+big_number get_variable(const std::string);
+big_number get_variable(const char *);
 
 #endif

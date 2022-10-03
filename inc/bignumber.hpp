@@ -8,8 +8,7 @@
 #include <cstring>
 
 const int MAXN = 1010;
-class big_number
-{
+class big_number{
 public:
     int integer_part[MAXN], frac_part[MAXN], exp_part[MAXN];
     int int_length, frac_length, exp_length;
