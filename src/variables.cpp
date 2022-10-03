@@ -1,5 +1,6 @@
 #include "variables.hpp"
 #include "bignumber.hpp"
+#include "exception.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -17,7 +18,7 @@ void set_variable(const char *name, big_number value){
 big_number get_variable(const std::string name){
     std::map<std::string, big_number>::iterator iter = variable_map.find(name);
     if (iter == variable_map.end()){
-        throw VARIABLE_DO_NOT_FIND;
+        throw (m_exception){0,"Variable not find"};
     }
     else{
         return iter->second;

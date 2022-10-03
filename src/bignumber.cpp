@@ -1,4 +1,5 @@
 #include "bignumber.hpp"
+#include "exception.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -50,15 +51,14 @@ big_number::big_number(double dnumber)
     {
         integer_part[int_length++] = inumber % 10;
         if (int_length >= MAXN)
-            throw ARITHMETIC_ERROR;
+            throw (m_exception){0,"Too long (length:1000) for big_number"};
         inumber /= 10;
     }
     while (dnumber >= 1e-10)
     {
         frac_part[frac_length] = int(dnumber * 10);
         dnumber = dnumber * 10 - frac_part[frac_length++];
-        if (frac_length >= MAXN)
-            throw ARITHMETIC_ERROR;
+        if (frac_length >= MAXN) break;
     }
 }
 big_number::big_number(std::string number)
@@ -80,7 +80,7 @@ big_number::big_number(std::string number)
         {
             if (stage != 2 && stage != 4)
             {
-                throw NOT_A_NUMBER;
+                throw (m_exception){pos,"This is not a number"};
             }
             stage = 5;
         }
@@ -88,7 +88,7 @@ big_number::big_number(std::string number)
         {
             if (stage != 2)
             {
-                throw NOT_A_NUMBER;
+                throw (m_exception){pos,"This is not a number"};
             }
             stage = 3;
         }
@@ -96,7 +96,7 @@ big_number::big_number(std::string number)
         {
             if (stage != 0 && stage != 5)
             {
-                throw NOT_A_NUMBER;
+                throw (m_exception){pos,"This is not a number"};
             }
             if (stage == 0)
             {
@@ -127,10 +127,10 @@ big_number::big_number(std::string number)
                 exp_part[exp_length++] = ch - '0';
             }
             else
-                throw NOT_A_NUMBER;
+                throw (m_exception){pos,"This is not a number"};
         }
         else
-            throw NOT_A_NUMBER;
+            throw (m_exception){pos,"This is not a number"};
     }
 
     for (int i = 0; i < int_length / 2; i++)
@@ -145,6 +145,15 @@ big_number::big_number(std::string number)
 
 big_number big_number::to_int()
 {
+}
+
+void big_number::output()
+{
+
+}
+void big_number::output(int)
+{
+
 }
 
 big_number operator+(const big_number v1, const big_number v2)

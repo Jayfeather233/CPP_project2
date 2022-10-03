@@ -1,5 +1,7 @@
 #include "bignumber.hpp"
 #include "variables.hpp"
+#include "exception.hpp"
+#include "calctree.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -7,39 +9,13 @@
 
 using namespace std;
 
-const int MAXM = 100000;
-
-int bracket_nxt[MAXM];
-int bracket_pre[MAXM];
-void bracket_match(char *input, int l, int r)
-{
-    stack<int> pre_bracket;
-    while (!pre_bracket.empty())
-        pre_bracket.pop();
-    for (int i = l; i < r; i++)
-    {
-        if (input[i] == '(')
-        {
-            pre_bracket.push(i);
-        }
-        else if (input[i] == ')')
-        {
-            if (pre_bracket.empty())
-                throw i;
-            int u = pre_bracket.top();
-            bracket_nxt[u] = i;
-            bracket_pre[i] = u;
-            pre_bracket.pop();
-        }
-    }
-    if (!pre_bracket.empty())
-    {
-        throw pre_bracket.top();
-    }
+big_number calc(char *input, int l, int r){
+    bracket_match(input, l, r);
+    int tree_root = build_calc_tree(input, l, r);
+    return calc_calc_tree(tree_root);
 }
-char input[MAXM];
-int main(int argc, char **argv)
-{
+char input[1000000];
+int main(int argc, char **argv){
     if(argc != 1){
         if(argc > 2){
             puts("Too many parameters! Please use -h or --help to see the documents.");
@@ -72,8 +48,7 @@ int main(int argc, char **argv)
     big_number C_PI("3.141592653589793238462643383279502884197169399375105820974944592307816406286");
     set_variable("E",C_E);
     set_variable("PI",C_PI);
-    while (true)
-    {
+    while (true){
         scanf("%[^\n]", input);
         scanf("%*c");
         if(strcmp(input,"quit")==0){
@@ -85,32 +60,49 @@ int main(int argc, char **argv)
         }
         int lt = strlen(input), nlt = 0;
         // delete empty space in input
-        for (int i = 0; i < lt; i++)
-        {
-            if (input[i] != ' ')
-            {
+        for (int i = 0; i < lt; i++){
+            if (input[i] != ' '){
                 input[nlt++] = input[i];
             }
         }
         lt = nlt;
         input[lt] = 0;
-        for (int i = 0; i < lt; i++)
-        {
-            bracket_nxt[i] = bracket_pre[i] = 0;
+
+        int flg_var = 0;
+        for(int i=0;i<nlt;i++){
+            if(input[i]=='=' && input[i-1]!= '<' && input[i-1]!= '>' && input[i-1]!= '!' && input[i-1]!= '=' &&
+                input[i+1]!= '<' && input[i+1]!= '>' && input[i+1]!= '!' && input[i+1]!= '='){
+                
+                string var_name;
+                for(int j=0;j<i;j++){
+                    var_name[j]=input[j];
+                }
+                try{
+                    big_number result = calc(input, i+1, nlt-1);
+                    set_variable(var_name, result);
+                } catch (m_exception e){
+                    printf("%s\n",e.msg);
+                    printf("AT %s\n",input);
+                    for(int i=-3;i<e.pos;i++) printf(" ");
+                    printf("^\n");
+                }
+                flg_var = 1;
+                break;
+            }
         }
-        try
-        {
-            bracket_match(input, 0, nlt);
+
+        if(!flg_var){
+            try
+            {
+                big_number u = calc(input,0,nlt-1);
+                u.output();
+            } catch (m_exception e){
+                printf("%s\n",e.msg);
+                printf("AT %s\n",input);
+                for(int i=-3;i<e.pos;i++) printf(" ");
+                printf("^\n");
+            }
         }
-        catch (int e)
-        {
-            printf("Cannot do bracket matching. Please check your input.\nAT %s\n", input);
-            printf("   ");
-            for (int i = 0; i < e; i++)
-                printf(" ");
-            printf("^\n");
-        }
-        
     }
     return 0;
 }

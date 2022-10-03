@@ -1,9 +1,6 @@
 #ifndef _INC_BIGNUMBER_HPP
 #define _INC_BIGNUMBER_HPP 1
 
-#define ARITHMETIC_ERROR 2
-#define NOT_A_NUMBER 4
-
 #include <iostream>
 #include <cstring>
 
@@ -19,6 +16,8 @@ public:
     big_number(double);
     big_number(std::string);
     big_number to_int();
+    void output();
+    void output(int);
 };
 big_number operator + (const big_number, const big_number);
 big_number operator - (const big_number, const big_number);

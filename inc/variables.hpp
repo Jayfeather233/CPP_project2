@@ -1,8 +1,6 @@
 #ifndef _INC_VARIABLES_HPP
 #define _INC_VARIABLES_HPP 1
 
-#define VARIABLE_DO_NOT_FIND 1
-
 #include "bignumber.hpp"
 
 #include <iostream>
