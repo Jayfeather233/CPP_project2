@@ -44,12 +44,14 @@ int main(int argc, char **argv){
     puts("Welcome to better calculator. please input your expressions.");
     big_number C_E("2.7182818284590452353602874713526624977572470936999595749669676277240766303535");
     big_number C_PI("3.141592653589793238462643383279502884197169399375105820974944592307816406286");
-    set_variable("E",C_E);
-    set_variable("PI",C_PI);
+    set_variable("e",C_E);
+    set_variable("pi",C_PI);
     while (true){
+        input[0]=0;
         scanf("%[^\n]", input);
         scanf("%*c");
         int lt = strlen(input), nlt = 0;
+        if(lt==0) continue;
         for(int i=0;i<lt;i++){
             if('A'<=input[i] && input[i]<='Z'){
                 input[i]+='a'-'A';
@@ -76,9 +78,9 @@ int main(int argc, char **argv){
             if(input[i]=='=' && input[i-1]!= '<' && input[i-1]!= '>' && input[i-1]!= '!' && input[i-1]!= '=' &&
                 input[i+1]!= '<' && input[i+1]!= '>' && input[i+1]!= '!' && input[i+1]!= '='){
                 
-                std::string var_name;
+                std::string var_name="";
                 for(int j=0;j<i;j++){
-                    var_name[j]=input[j];
+                    var_name+=input[j];
                 }
                 try{
                     big_number result = calc(input, i+1, nlt-1);
@@ -96,6 +98,7 @@ int main(int argc, char **argv){
             {
                 big_number u = calc(input,0,nlt-1);
                 u.output();
+                std::cout<<std::endl;
             } catch (std::string e){
                 std::cout<<e<<std::endl;
             }

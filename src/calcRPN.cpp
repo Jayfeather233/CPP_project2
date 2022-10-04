@@ -1,4 +1,5 @@
 #include "calcRPN.hpp"
+#include "variables.hpp"
 
 #include <stack>
 #include <iostream>
@@ -27,6 +28,7 @@ void bracket_match(char *input, int l, int r)
         {
             if (pre_bracket.empty()){
                 std::string msg(input);
+                msg+='\n';
                 for(int j=0;j<i;j++) msg+=' ';
                 msg+="^\nBracket matching failed.";
                 throw msg;
@@ -100,7 +102,7 @@ std::vector<std::string> build_RPN(char *input_ori, int l, int r){
                 tmp.pop();
             }
             tmp.pop();
-            if(is_function(tmp.top())){
+            if(tmp.size() && is_function(tmp.top())){
                 result.push_back(tmp.top());
                 tmp.pop();
             }
@@ -142,13 +144,13 @@ big_number calc_RPN(std::vector<std::string> expression){
             }else if(op[0]=='/'){
                 result.push(t2/t1);
             }else if(op[0]=='^'){
-                result.push(pow(t2,t1));
+                result.push(bpow(t2,t1));
             }else if(op[0]=='<' && op[1]!='='){
                 result.push(t2<t1);
             }else if(op[0]=='>' && op[1]!='='){
                 result.push(t2>t1);
             }else if(op[0]=='<' && op[1]=='='){
-                result.push(t2<t=1);
+                result.push(t2<t1);
             }else if(op[0]=='>' && op[1]=='='){
                 result.push(t2>=t1);
             }else if(op[0]=='=' && op[1]!='='){
@@ -162,15 +164,27 @@ big_number calc_RPN(std::vector<std::string> expression){
             }
             t1=result.top();result.pop();
 
-            switch(op){
-                case "sqrt":result.push(sqrt(t1));break;
-                case "sin":result.push(sin(t1));break;
-                case "cos":result.push(cos(t1));break;
-                case "tan":result.push(tan(t1));break;
-                case "ln":result.push(ln(t1));break;
+            if(op=="sqrt"){
+                result.push(bsqrt(t1));
+            }else if(op=="sin"){
+                result.push(bsin(t1));
+            }else if(op=="cos"){
+                result.push(bcos(t1));
+            }else if(op=="tan"){
+                result.push(btan(t1));
+            }else if(op=="ln"){
+                result.push(bln(t1));
             }
         }else{
-            result.push(big_number(op));
+            try{
+                result.push(big_number(op));
+            } catch (std::string e){
+                try{
+                    result.push(get_variable(op));
+                } catch (std::string e2){
+                    throw e2;
+                }
+            }
         }
     }
     if(result.size()>=2){
