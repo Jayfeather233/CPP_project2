@@ -7,17 +7,16 @@
 const int MAXN = 1010;
 class big_number{
 public:
-    int integer_part[MAXN], frac_part[MAXN], exp_part[MAXN];
-    int int_length, frac_length, exp_length;
-    bool is_negative, exp_negative;
+    int integer_part[MAXN], frac_part[MAXN];
+    int int_length, frac_length, exp_part;
+    bool is_negative;
 
     big_number();
     big_number(int);
     big_number(double);
     big_number(std::string);
-    big_number to_int();
+    void to_int();
     void output();
-    void output(int);
 };
 big_number operator + (const big_number, const big_number);
 big_number operator - (const big_number, const big_number);
@@ -28,5 +27,12 @@ big_number operator > (const big_number, const big_number);
 big_number operator == (const big_number, const big_number);
 big_number operator <= (const big_number, const big_number);
 big_number operator >= (const big_number, const big_number);
+big_number pow (const big_number, const big_number);
+big_number pow (const big_number, const double);
+big_number sqrt (const big_number);
+big_number ln (const big_number);
+big_number sin (const big_number);
+big_number cos (const big_number);
+big_number tan (const big_number);
 
 #endif

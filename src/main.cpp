@@ -1,18 +1,16 @@
 #include "bignumber.hpp"
 #include "variables.hpp"
-#include "exception.hpp"
-#include "calctree.hpp"
+#include "calcRPN.hpp"
 
 #include <iostream>
 #include <cstring>
 #include <stack>
-
-using namespace std;
+#include <vector>
 
 big_number calc(char *input, int l, int r){
     bracket_match(input, l, r);
-    int tree_root = build_calc_tree(input, l, r);
-    return calc_calc_tree(tree_root);
+    std::vector<std::string> RPN_exp = build_RPN(input, l, r);
+    return calc_RPN(RPN_exp);
 }
 char input[1000000];
 int main(int argc, char **argv){
@@ -26,7 +24,7 @@ int main(int argc, char **argv){
             puts("");
             puts("You should directly run ./bc to calculate expressions.");
             puts("Support: + - * / ^ () and < > <= >= == !=");
-            puts("    and functions: pow sqrt sin cos tan ln");
+            puts("    and functions: sqrt sin cos tan ln");
             puts("    and [variable name] = [expressions]");
             puts("");
             puts("Built in variables: PI = 3.14... E = 2.718...");
@@ -51,6 +49,12 @@ int main(int argc, char **argv){
     while (true){
         scanf("%[^\n]", input);
         scanf("%*c");
+        int lt = strlen(input), nlt = 0;
+        for(int i=0;i<lt;i++){
+            if('A'<=input[i] && input[i]<='Z'){
+                input[i]+='a'-'A';
+            }
+        }
         if(strcmp(input,"quit")==0){
             break;
         }
@@ -58,7 +62,6 @@ int main(int argc, char **argv){
             puts("Use \'quit\' to quit");
             continue;
         }
-        int lt = strlen(input), nlt = 0;
         // delete empty space in input
         for (int i = 0; i < lt; i++){
             if (input[i] != ' '){
@@ -73,18 +76,15 @@ int main(int argc, char **argv){
             if(input[i]=='=' && input[i-1]!= '<' && input[i-1]!= '>' && input[i-1]!= '!' && input[i-1]!= '=' &&
                 input[i+1]!= '<' && input[i+1]!= '>' && input[i+1]!= '!' && input[i+1]!= '='){
                 
-                string var_name;
+                std::string var_name;
                 for(int j=0;j<i;j++){
                     var_name[j]=input[j];
                 }
                 try{
                     big_number result = calc(input, i+1, nlt-1);
                     set_variable(var_name, result);
-                } catch (m_exception e){
-                    printf("%s\n",e.msg);
-                    printf("AT %s\n",input);
-                    for(int i=-3;i<e.pos;i++) printf(" ");
-                    printf("^\n");
+                } catch (std::string e){
+                    std::cout<<e<<std::endl;
                 }
                 flg_var = 1;
                 break;
@@ -96,11 +96,8 @@ int main(int argc, char **argv){
             {
                 big_number u = calc(input,0,nlt-1);
                 u.output();
-            } catch (m_exception e){
-                printf("%s\n",e.msg);
-                printf("AT %s\n",input);
-                for(int i=-3;i<e.pos;i++) printf(" ");
-                printf("^\n");
+            } catch (std::string e){
+                std::cout<<e<<std::endl;
             }
         }
     }

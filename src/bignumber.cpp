@@ -1,5 +1,4 @@
 #include "bignumber.hpp"
-#include "exception.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -10,8 +9,7 @@ big_number::big_number()
 {
     memset(frac_part, 0, sizeof(frac_part));
     memset(integer_part, 0, sizeof(integer_part));
-    memset(exp_part, 0, sizeof(exp_part));
-    frac_length = int_length = exp_length = exp_negative = is_negative = 0;
+    frac_length = int_length = exp_part = is_negative = 0;
 }
 
 // create a new big_number with value number(int)
@@ -19,8 +17,7 @@ big_number::big_number(int number)
 {
     memset(frac_part, 0, sizeof(frac_part));
     memset(integer_part, 0, sizeof(integer_part));
-    memset(exp_part, 0, sizeof(exp_part));
-    frac_length = int_length = exp_length = exp_negative = is_negative = 0;
+    frac_length = int_length = exp_part = is_negative = 0;
     if (number < 0)
     {
         number = -number;
@@ -38,8 +35,7 @@ big_number::big_number(double dnumber)
 {
     memset(frac_part, 0, sizeof(frac_part));
     memset(integer_part, 0, sizeof(integer_part));
-    memset(exp_part, 0, sizeof(exp_part));
-    frac_length = int_length = exp_length = exp_negative = is_negative = 0;
+    frac_length = int_length = exp_part = is_negative = 0;
     if (dnumber < 0)
     {
         dnumber = -dnumber;
@@ -51,7 +47,7 @@ big_number::big_number(double dnumber)
     {
         integer_part[int_length++] = inumber % 10;
         if (int_length >= MAXN)
-            throw (m_exception){0,"Too long (length:1000) for big_number"};
+            throw "Too long (length:1000) for big_number";
         inumber /= 10;
     }
     while (dnumber >= 1e-10)
@@ -65,10 +61,11 @@ big_number::big_number(std::string number)
 {
     memset(frac_part, 0, sizeof(frac_part));
     memset(integer_part, 0, sizeof(integer_part));
-    memset(exp_part, 0, sizeof(exp_part));
-    frac_length = int_length = exp_length = exp_negative = is_negative = 0;
+    frac_length = int_length = exp_part = is_negative = 0;
 
     int stage = 0;
+
+    int exp_negative = 1;
 
     // stage:0 1  2  3  4  5 6  7
     // value:  - 123 . 456 e - 789
@@ -80,7 +77,7 @@ big_number::big_number(std::string number)
         {
             if (stage != 2 && stage != 4)
             {
-                throw (m_exception){pos,"This is not a number"};
+                throw "AT " + number + ": This is not a number";
             }
             stage = 5;
         }
@@ -88,7 +85,7 @@ big_number::big_number(std::string number)
         {
             if (stage != 2)
             {
-                throw (m_exception){pos,"This is not a number"};
+                throw "AT " + number + ": This is not a number";
             }
             stage = 3;
         }
@@ -96,7 +93,7 @@ big_number::big_number(std::string number)
         {
             if (stage != 0 && stage != 5)
             {
-                throw (m_exception){pos,"This is not a number"};
+                throw "AT " + number + ": This is not a number";
             }
             if (stage == 0)
             {
@@ -105,7 +102,7 @@ big_number::big_number(std::string number)
             }
             else
             {
-                exp_negative = 1;
+                exp_negative = -1;
                 stage = 6;
             }
         }
@@ -124,40 +121,70 @@ big_number::big_number(std::string number)
             else if (stage <= 7)
             {
                 stage = 7;
-                exp_part[exp_length++] = ch - '0';
+                exp_part = exp_part * 10 + ch - '0';
             }
             else
-                throw (m_exception){pos,"This is not a number"};
+                throw "AT " + number + ": This is not a number";
         }
         else
-            throw (m_exception){pos,"This is not a number"};
+                throw "AT " + number + ": This is not a number";
     }
 
     for (int i = 0; i < int_length / 2; i++)
     {
         std::swap(integer_part[i], integer_part[int_length - i - 1]);
     }
-    for (int i = 0; i < exp_length / 2; i++)
-    {
-        std::swap(exp_part[i], exp_part[exp_length - i - 1]);
-    }
+
+    exp_part *= exp_negative;
 }
 
-big_number big_number::to_int()
+void big_number::to_int()
 {
+    if(exp_part < 0){
+        for(int i=0;i<int_length+exp_part;i++){
+            integer_part[i]=integer_part[i-exp_part];
+        }
+        for(int i=int_length+exp_part;i<int_length;i++){
+            integer_part[i]=0;
+        }
+        exp_part = 0;
+    }
+    for(int i=exp_part;i<frac_length;i++){
+        frac_part[i]=0;
+    }
+    frac_length = exp_part;
 }
 
 void big_number::output()
 {
-
-}
-void big_number::output(int)
-{
-
+    if(abs(exp_part)<6){
+        for(int i=int_length-1;i>=0;i--){
+            printf("%d",integer_part[i]);
+            if(i==-exp_part){
+                printf(".");
+            }
+        }
+        for(int i=0;i<frac_length;i++){
+            if(i==exp_part && i){
+                printf(".");
+            }
+            printf("%d",frac_part[i]);
+        }
+    } else {
+        for(int i=int_length-1;i>=0;i--){
+            printf("%d",integer_part[i]);
+        }
+        printf(".");
+        for(int i=0;i<frac_length;i++){
+            printf("%d",frac_part[i]);
+        }
+        printf("e%d",exp_part);
+    }
 }
 
 big_number operator+(const big_number v1, const big_number v2)
 {
+
 }
 big_number operator-(const big_number v1, const big_number v2)
 {
@@ -182,4 +209,25 @@ big_number operator<=(const big_number v1, const big_number v2)
 }
 big_number operator>=(const big_number v1, const big_number v2)
 {
+}
+big_number pow (const big_number v1, const big_number v2){
+
+}
+big_number pow (const big_number v1, const double v2){
+
+}
+big_number sqrt (const big_number v){
+    
+}
+big_number ln (const big_number v){
+    
+}
+big_number sin (const big_number v){
+    
+}
+big_number cos (const big_number v){
+    
+}
+big_number tan (const big_number v){
+    
 }

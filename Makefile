@@ -153,6 +153,30 @@ src/bignumber.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/bignumber.cpp.s
 .PHONY : src/bignumber.cpp.s
 
+src/calcRPN.o: src/calcRPN.cpp.o
+.PHONY : src/calcRPN.o
+
+# target to build an object file
+src/calcRPN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/calcRPN.cpp.o
+.PHONY : src/calcRPN.cpp.o
+
+src/calcRPN.i: src/calcRPN.cpp.i
+.PHONY : src/calcRPN.i
+
+# target to preprocess a source file
+src/calcRPN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/calcRPN.cpp.i
+.PHONY : src/calcRPN.cpp.i
+
+src/calcRPN.s: src/calcRPN.cpp.s
+.PHONY : src/calcRPN.s
+
+# target to generate assembly for a file
+src/calcRPN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bc.dir/build.make CMakeFiles/bc.dir/src/calcRPN.cpp.s
+.PHONY : src/calcRPN.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -213,6 +237,9 @@ help:
 	@echo "... src/bignumber.o"
 	@echo "... src/bignumber.i"
 	@echo "... src/bignumber.s"
+	@echo "... src/calcRPN.o"
+	@echo "... src/calcRPN.i"
+	@echo "... src/calcRPN.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
