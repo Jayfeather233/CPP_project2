@@ -41,7 +41,7 @@ input: x=sin(45*pi/180)
 output: 1.00000000
 ```
 
-**[Screen Shoot]**
+![scs](./pic/snapshoot.png)
 
 ## Part 4 - Difficulties & Solutions
 
