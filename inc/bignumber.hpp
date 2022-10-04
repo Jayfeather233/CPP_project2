@@ -6,19 +6,20 @@
 
 const int MAXN = 1010;
 class big_number{
-public:/*
-    int integer_part[MAXN], frac_part[MAXN];
-    int int_length, frac_length, exp_part;
-    bool is_negative;
-*/
-    double data;
+public:
+    double data;  //The number
+
+    //constructors
     big_number();
     big_number(int);
     big_number(double);
     big_number(std::string);
-    void to_int();
+
+    //output the data
     void output();
 };
+
+//redefine operators
 big_number operator + (const big_number, const big_number);
 big_number operator - (const big_number, const big_number);
 big_number operator * (const big_number, const big_number);
@@ -29,6 +30,7 @@ big_number operator == (const big_number, const big_number);
 big_number operator != (const big_number, const big_number);
 big_number operator <= (const big_number, const big_number);
 big_number operator >= (const big_number, const big_number);
+//math functions
 big_number bpow (const big_number, const big_number);
 big_number bpow (const big_number, const double);
 big_number bsqrt (const big_number);

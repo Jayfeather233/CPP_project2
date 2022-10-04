@@ -7,6 +7,9 @@
 
 std::map<std::string, big_number> variable_map;
 
+/// @brief Insert value into a variable
+/// @param name 
+/// @param value 
 void set_variable(const std::string name, big_number value){
     variable_map.insert({name, value});
 }
@@ -14,6 +17,9 @@ void set_variable(const char *name, big_number value){
     variable_map.insert({std::string(name), value});
 }
 
+/// @brief Get value from a variable
+/// @param name 
+/// @return 
 big_number get_variable(const std::string name){
     std::map<std::string, big_number>::iterator iter = variable_map.find(name);
     if (iter == variable_map.end()){

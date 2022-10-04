@@ -7,6 +7,7 @@
 #include <stack>
 #include <vector>
 
+// To call functions in calcRPN
 big_number calc(char *input, int l, int r){
     bracket_match(input, l, r);
     std::vector<std::string> RPN_exp = build_RPN(input, l, r);
@@ -14,7 +15,7 @@ big_number calc(char *input, int l, int r){
 }
 char input[1000000];
 int main(int argc, char **argv){
-    if(argc != 1){
+    if(argc != 1){// Below are documents
         if(argc > 2){
             puts("Too many parameters! Please use -h or --help to see the documents.");
             return 1;
@@ -42,8 +43,9 @@ int main(int argc, char **argv){
         return 0;
     }
     puts("Welcome to better calculator. please input your expressions.");
-    big_number C_E("2.7182818284590452353602874713526624977572470936999595749669676277240766303535");
-    big_number C_PI("3.141592653589793238462643383279502884197169399375105820974944592307816406286");
+    // const number e and pi
+    big_number C_E("2.71828182845904523536028747135");
+    big_number C_PI("3.1415926535897932384626433832");
     set_variable("e",C_E);
     set_variable("pi",C_PI);
     while (true){
@@ -51,7 +53,7 @@ int main(int argc, char **argv){
         scanf("%[^\n]", input);
         scanf("%*c");
         int lt = strlen(input), nlt = 0;
-        if(lt==0) continue;
+        if(lt==0) continue;//No input
         for(int i=0;i<lt;i++){
             if('A'<=input[i] && input[i]<='Z'){
                 input[i]+='a'-'A';
@@ -77,29 +79,40 @@ int main(int argc, char **argv){
         for(int i=0;i<nlt;i++){
             if(input[i]=='=' && input[i-1]!= '<' && input[i-1]!= '>' && input[i-1]!= '!' && input[i-1]!= '=' &&
                 input[i+1]!= '<' && input[i+1]!= '>' && input[i+1]!= '!' && input[i+1]!= '='){
-                
+                // A single '=', means variable assignment.
                 std::string var_name="";
                 for(int j=0;j<i;j++){
                     var_name+=input[j];
                 }
-                try{
-                    big_number result = calc(input, i+1, nlt-1);
-                    set_variable(var_name, result);
-                } catch (std::string e){
-                    std::cout<<e<<std::endl;
+                if(var_name.length()==0){
+                    std::cout<<"Lack of variable name."<<std::endl;
+                }else{
+                    try{
+                        big_number result = calc(input, i+1, nlt-1);
+                        set_variable(var_name, result);
+                        std::cout<<"set "<<var_name<<" to ";
+                        result.output();
+                        std::cout<<std::endl;
+                    } catch (std::string e){
+                        std::cout<<e<<std::endl;
+                    } catch (const char* e){
+                        std::cout<<e<<std::endl;
+                    }
                 }
                 flg_var = 1;
                 break;
             }
         }
 
-        if(!flg_var){
+        if(!flg_var){//otherwise is a expression with output result
             try
             {
                 big_number u = calc(input,0,nlt-1);
                 u.output();
                 std::cout<<std::endl;
             } catch (std::string e){
+                std::cout<<e<<std::endl;
+            } catch (const char* e){
                 std::cout<<e<<std::endl;
             }
         }
