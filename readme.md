@@ -17,14 +17,14 @@ The problem is to calculate a set of expressions, including basic operations, va
 
 ## Part 3 - Result & Verification
 
-Test case #1:
+Test case #1: Support of math functions
 
 ```
 input: ln(e)
 output: 1.00000000
 ```
 
-Test case #2:
+Test case #2: Support of variables
 
 ```
 input: x=sin(45*pi/180)
@@ -32,7 +32,7 @@ input: x=sin(45*pi/180)
 output: 0.70710678
 ```
 
-Test case #3:
+Test case #3: functions, variables, basic operations.
 
 ```
 input: x=sin(45*pi/180)
