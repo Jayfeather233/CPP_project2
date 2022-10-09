@@ -1,3 +1,5 @@
+# Report has been updated. Add big number support. 
+
 # CS205 C/ C++ Programming - Better Calculator
 
 **Name**: 肖佳辰
