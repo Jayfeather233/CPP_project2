@@ -14,7 +14,7 @@ The problem is to calculate a set of expressions, including basic operations, va
 //Too long to put here.
 //See codes in ./src
 ```
-`bignumber.cpp` for big numbers operation including basic operations, math functions (use Taylor expand expression).
+`bignumber.cpp` for big numbers operation including basic operations, math functions (use Taylor Expand expression).
 
 `variables.cpp` for store and use variables.
 
@@ -65,3 +65,5 @@ output: 199.999999990572101177584393655469
 ## Part 4 - Difficulties & Solutions
 
 Computers are not good for compute `infix expression`. So we convert the input to `suffix expression` to store and calculate the expression. Use `map` to store variables. Write `big_number` to store very big numbers (up to 10^500)
+
+But to calculate Taylor Expand may lose precision and due to performance we cannot fix it.
