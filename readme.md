@@ -14,22 +14,32 @@ The problem is to calculate a set of expressions, including basic operations, va
 //Too long to put here.
 //See codes in ./src
 ```
+`bignumber.cpp` for big numbers operation including basic operations, math functions (use Taylor expand expression).
+
+`variables.cpp` for store and use variables.
+
+`calcRPN.cpp`   for calculate the input expressions.
+
+`main.cpp`      for begin.
+
 
 ## Part 3 - Result & Verification
 
 Test case #1: Support of math functions
 
 ```
-input: ln(e)
-output: 1.00000000
+input: ln(2)
+output: 0.693147180559945309417232121471
 ```
 
-Test case #2: Support of variables
+Test case #2: Support of variables(Case-sensitive)
+
+> PI and E are built in.
 
 ```
-input: x=sin(45*pi/180)
+input: x=sin(45*PI/180)
        x
-output: 0.70710678
+output: 0.707106781186547524400844362090
 ```
 
 Test case #3: functions, variables, basic operations.
@@ -41,8 +51,17 @@ input: x=sin(45*pi/180)
 output: 1.00000000
 ```
 
+Test case #4: Big numbers
+
+```
+input: ln(7.2259737e86)
+output: 199.999999990572101177584393655469
+```
+
 ![scs](./pic/snapshoot.png)
+
+![src](./pic/snapshoot2.png)
 
 ## Part 4 - Difficulties & Solutions
 
-Computers are not good for compute `infix expression`. So we convert the input to `suffix expression` to store and calculate the expression. Use `map` to store variables.
+Computers are not good for compute `infix expression`. So we convert the input to `suffix expression` to store and calculate the expression. Use `map` to store variables. Write `big_number` to store very big numbers (up to 10^500)
