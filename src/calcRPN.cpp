@@ -91,7 +91,7 @@ std::vector<std::string> convert_input(char *input, int l, int r){
             result.push_back(str);
         } else {
             str="";
-            while(i<=r && !is_operator(input[i])){
+            while(i<=r && (!is_operator(input[i]) || (input[i-1]=='e' && input[i]=='-'))){
                 str+=input[i];
                 i++;
             }

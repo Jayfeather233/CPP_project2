@@ -46,19 +46,14 @@ int main(int argc, char **argv){
     // const number e and pi
     big_number C_E("2.71828182845904523536028747135");
     big_number C_PI("3.1415926535897932384626433832");
-    set_variable("e",C_E);
-    set_variable("pi",C_PI);
+    set_variable("E",C_E);
+    set_variable("PI",C_PI);
     while (true){
         input[0]=0;
         scanf("%[^\n]", input);
         scanf("%*c");
         int lt = strlen(input), nlt = 0;
         if(lt==0) continue;//No input
-        for(int i=0;i<lt;i++){
-            if('A'<=input[i] && input[i]<='Z'){
-                input[i]+='a'-'A';
-            }
-        }
         if(strcmp(input,"quit")==0){
             break;
         }
