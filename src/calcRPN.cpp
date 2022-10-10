@@ -88,10 +88,32 @@ std::vector<std::string> convert_input(char *input, int l, int r){
                 str+=input[i+1];
                 i++;
             }
+            if(str == "-"){
+                try{
+                    if(result.size()==0) throw std::string("");
+                    try{
+                        big_number(result.back());
+                    }catch(std::string e){
+                        get_variable(result.back());
+                    }
+                }catch(std::string e){
+                    result.push_back("0");
+                }
+            }
             result.push_back(str);
         } else {
             str="";
-            while(i<=r && (!is_operator(input[i]) || (input[i-1]=='e' && input[i]=='-'))){
+            while(i<=r && (!is_operator(input[i]) || 
+                            (input[i-1]=='e' && input[i]=='-'))){
+                if(input[i]=='-' && input[i-1]=='e'){
+                    int flg = 0;
+                    try{
+                        big_number ex = big_number(str);
+                    } catch (std::string e){
+                        flg=1;
+                    }
+                    if(flg) break;
+                }
                 str+=input[i];
                 i++;
             }

@@ -358,7 +358,7 @@ int operator==(const big_number v1, const big_number v2){
         if(v1.int_len != v2.int_len){
             return 0;
         }
-        for(int i=v1.int_len+kFracLen -1;i>=kFracLen - 50;i--){
+        for(int i=v1.int_len+kFracLen -1;i>=300;i--){
             if(v1.data[i]!=v2.data[i]){
                 return 0;
             }

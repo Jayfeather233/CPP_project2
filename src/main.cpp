@@ -46,8 +46,8 @@ int main(int argc, char **argv){
     // const number e and pi
     big_number C_E("2.71828182845904523536028747135");
     big_number C_PI("3.1415926535897932384626433832");
-    set_variable("E",C_E);
-    set_variable("PI",C_PI);
+    set_const_variable("E",C_E);
+    set_const_variable("PI",C_PI);
     while (true){
         input[0]=0;
         scanf("%[^\n]", input);
@@ -104,6 +104,7 @@ int main(int argc, char **argv){
             {
                 big_number u = calc(input,0,nlt-1);
                 u.output();
+                set_const_variable("ans",u);
                 std::cout<<std::endl;
             } catch (std::string e){
                 std::cout<<e<<std::endl;
