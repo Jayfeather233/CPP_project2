@@ -421,6 +421,13 @@ big_number bexp (const big_number v){
     return ans;
 }
 big_number bsin (const big_number v){
+    if(v.is_negative){
+        big_number c(v);
+        c.is_negative=0;
+        c=bsin(c);
+        c.is_negative=1;
+        return c;
+    }
     big_number c(v);
     big_number x = c / k2_PI;
     x.floor();
@@ -445,6 +452,7 @@ big_number bsin (const big_number v){
 }
 big_number bcos (const big_number v){
     big_number c(v);
+    c.is_negative=0;
     big_number x = c / k2_PI;
     x.floor();
     c=c-x*k2_PI;
