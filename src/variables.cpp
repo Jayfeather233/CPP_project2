@@ -14,10 +14,10 @@ void set_variable(const std::string name, big_number value){
     if(name=="ans" || name=="E"||name=="PI"){
         throw std::string("You cannot set const variable "+name+".");
     }
-    variable_map.insert({name, value});
+    variable_map[name] = value;
 }
 void set_const_variable(const std::string name, big_number value){
-    variable_map.insert({name, value});
+    variable_map[name] = value;
 }
 void set_variable(const char *name, big_number value){
     set_variable(std::string(name), value);

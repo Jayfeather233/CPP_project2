@@ -196,7 +196,7 @@ void big_number::output(){
             printf("%d",data[i]);
         }
     } else {
-        for(int i=int_len + kFracLen - 1; i >= kFracLen - std::min(frac_len,10); i --){
+        for(int i=int_len + kFracLen - 1; i >= int_len + kFracLen - 50; i --){
             if(i==int_len + kFracLen - 2){
                 printf(".");
             }
