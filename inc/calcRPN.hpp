@@ -7,8 +7,8 @@
 #include <vector>
 
 //Some functions used to convert and calculate input
-void bracket_match(char *, int, int);
-std::vector<std::string> build_RPN(char*,int,int);
+void bracket_match(std::string, int, int);
+std::vector<std::string> build_RPN(std::string,int,int);
 big_number calc_RPN(std::vector<std::string>);
 
 #endif

@@ -5,13 +5,11 @@
 #include <iostream>
 #include <vector>
 
-const int MAXM = 1000000;
-
 /// @brief To check if the input's brackets are correct
 /// @param input 
 /// @param l left bound
 /// @param r right bound [l,r]
-void bracket_match(char *input, int l, int r)
+void bracket_match(std::string input, int l, int r)
 {
     std::stack<int> pre_bracket;
     while (!pre_bracket.empty())
@@ -77,7 +75,7 @@ inline int get_priority(const char& a){
 /// @param l left bound
 /// @param r right bound [l,r]
 /// @return the vector<string>
-std::vector<std::string> convert_input(char *input, int l, int r){
+std::vector<std::string> convert_input(std::string input, int l, int r){
     std::vector<std::string> result;
     std::string str;
     for(int i=l;i<=r;i++){
@@ -131,7 +129,7 @@ std::vector<std::string> convert_input(char *input, int l, int r){
 /// @param l left bound
 /// @param r right bound
 /// @return Suffix expression
-std::vector<std::string> build_RPN(char *input_ori, int l, int r){
+std::vector<std::string> build_RPN(std::string input_ori, int l, int r){
     std::vector<std::string> result;
     std::stack<std::string> tmp;
     std::vector<std::string> input = convert_input(input_ori,l,r);

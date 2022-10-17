@@ -8,12 +8,12 @@
 #include <vector>
 
 // To call functions in calcRPN
-big_number calc(char *input, int l, int r){
+big_number calc(std::string input, int l, int r){
     bracket_match(input, l, r);
     std::vector<std::string> RPN_exp = build_RPN(input, l, r);
     return calc_RPN(RPN_exp);
 }
-char input[1000000];
+std::string input;
 int main(int argc, char **argv){
     if(argc != 1){// Below are documents
         if(argc > 2){
@@ -49,17 +49,12 @@ int main(int argc, char **argv){
     set_const_variable("E",C_E);
     set_const_variable("PI",C_PI);
     while (true){
-        input[0]=0;
-        scanf("%[^\n]", input);
-        scanf("%*c");
-        int lt = strlen(input), nlt = 0;
+        input="";
+        getline(std::cin,input);
+        int lt = input.length(), nlt = 0;
         if(lt==0) continue;//No input
-        if(strcmp(input,"quit")==0){
+        if(input=="quit" || input=="exit"){
             break;
-        }
-        if(strcmp(input,"exit")==0){
-            puts("Use \'quit\' to quit");
-            continue;
         }
         // delete empty space in input
         for (int i = 0; i < lt; i++){
