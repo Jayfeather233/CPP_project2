@@ -71,6 +71,6 @@ output: 1.0000000000000000000000000000000000000000000000010009999999e48
 
 ## Part 4 - Difficulties & Solutions
 
-Computers are not good for compute `infix expression`. So we convert the input to `suffix expression` to store and calculate the expression. Use `map` to store variables. Write `big_number` to store very big numbers (up to 10^500)
+Computers are not good for compute `infix expression`. So we convert the input to `postfix expression` to store and calculate the expression. Use `map` to store variables. Write `big_number` to store very big numbers (up to 10^500)
 
 But to calculate Taylor Expand may lose precision and due to performance we cannot fix it.
